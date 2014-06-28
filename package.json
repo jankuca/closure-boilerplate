@@ -7,9 +7,9 @@
 
   "dependencies": {
     "async": "*",
-    "autoprefixer": "*",
+    "autoprefixer": "0.8.x",
     "closure-runner": "*",
-    "rework": "*",
+    "rework": "0.20.x",
     "rework-svg": "*"
   }
 }
