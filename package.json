@@ -10,8 +10,15 @@
     "autoprefixer": "*",
     "bower": "*",
     "closure-runner": "*",
-    "rework": "*",
-    "rework-svg": "*"
+    "rework": "0.20.x",
+    "rework-calc": "0.2.x",
+    "rework-inherit": "0.2.x",
+    "rework-plugin-url": "0.9.x",
+    "rework-plugin-colors": "0.9.x",
+    "rework-plugin-at2x": "0.2.x",
+    "rework-plugin-ease": "reworkcss/rework-plugin-ease",
+    "rework-plugin-references": "reworkcss/rework-plugin-references",
+    "rework-svg": "MattSkala/rework-svg"
   },
 
   "scripts": {

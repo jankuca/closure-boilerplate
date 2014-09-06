@@ -3,7 +3,15 @@ var autoprefixer = require('autoprefixer');
 var fs = require('fs');
 var path = require('path');
 var rework = require('rework');
-var svg = require('rework-svg');
+
+var rework_at2x = require('rework-plugin-at2x');
+var rework_calc = require('rework-calc');
+var rework_colors = require('rework-plugin-colors');
+var rework_ease = require('rework-plugin-ease');
+var rework_inherit = require('rework-inherit');
+var rework_references = require('rework-plugin-references');
+var rework_svg = require('rework-svg');
+var rework_url = require('rework-plugin-url');
 
 
 module.exports = function (runner, args, callback) {
@@ -48,30 +56,30 @@ module.exports = function (runner, args, callback) {
             }
             return url;
           };
-          css_part.use(rework.url(fixUrl));
+          css_part.use(rework_url(fixUrl));
 
           css_code += css_part.toString();
         });
 
         var css = rework(css_code);
-        css.use(svg(path.dirname(target)));
+        css.use(rework_svg(path.dirname(target)));
         if (rework_flags.autoprefixer) {
-          css.use(autoprefixer(rework_flags.autoprefixer).rework);
+          css.use(rework_autoprefixer(rework_flags.autoprefixer).rework);
         }
         if (rework_flags.at2x) {
-          css.use(rework.at2x());
+          css.use(rework_at2x());
         }
         if (rework_flags.colors) {
-          css.use(rework.colors());
+          css.use(rework_colors());
         }
         if (rework_flags.extend) {
-          css.use(rework.extend());
+          css.use(rework_inherit());
         }
         if (rework_flags.ease) {
-          css.use(rework.ease());
+          css.use(rework_ease());
         }
         if (rework_flags.references) {
-          css.use(rework.references());
+          css.use(rework_references());
         }
 
         var css_result = css.toString({
