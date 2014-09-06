@@ -1,5 +1,4 @@
 var async = require('async');
-var autoprefixer = require('autoprefixer');
 var fs = require('fs');
 var path = require('path');
 var rework = require('rework');
@@ -12,6 +11,8 @@ var rework_inherit = require('rework-inherit');
 var rework_references = require('rework-plugin-references');
 var rework_svg = require('rework-svg');
 var rework_url = require('rework-plugin-url');
+
+var Autoprefixer = require('autoprefixer');
 
 
 module.exports = function (runner, args, callback) {
@@ -63,9 +64,6 @@ module.exports = function (runner, args, callback) {
 
         var css = rework(css_code);
         css.use(rework_svg(path.dirname(target)));
-        if (rework_flags.autoprefixer) {
-          css.use(rework_autoprefixer(rework_flags.autoprefixer).rework);
-        }
         if (rework_flags.at2x) {
           css.use(rework_at2x());
         }
@@ -85,6 +83,13 @@ module.exports = function (runner, args, callback) {
         var css_result = css.toString({
           compress: minify
         });
+
+        if (rework_flags.autoprefixer) {
+          var autoprefixer = new Autoprefixer({
+            browsers: rework_flags.autoprefixer
+          });
+          css_result = autoprefixer.process(css_result).css;
+        }
 
         fs.writeFile(target_filename, css_result, callback);
       };
